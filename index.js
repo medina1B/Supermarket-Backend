@@ -19,12 +19,20 @@ const app = express();
 // ✅ Enable CORS for both local dev and Vercel frontend
 const allowedOrigins = [
   "http://localhost:5173", // local Vite dev
-  "https://admin-v2-dgnv-c501pnkal-medina1bs-projects.vercel.app", // Vercel frontend
+  "https://admin-v2-dgnv.vercel.app", // Vercel frontend
 ];
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: function (origin, callback) {
+      // allow requests with no origin (like Postman)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg = `The CORS policy for this site does not allow access from the specified Origin.`;
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
     credentials: true, // allow cookies/JWT
   })
 );

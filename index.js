@@ -16,10 +16,10 @@ import customerAuthRoutes from "./routes/customerAuth.js";
 dotenv.config();
 const app = express();
 
-// ✅ Enable CORS for local dev and Vercel frontend
+// ✅ Enable CORS for local dev and deployed frontend
 const allowedOrigins = [
   "http://localhost:5173", // local Vite dev
-  "https://admin-v2-dgnv-c501pnkal-medina1bs-projects.vercel.app", // exact deployed frontend
+  "https://supermarket-frontend-v2-t8vu-hoxnzd2a9-medina1bs-projects.vercel.app", // deployed frontend
 ];
 
 app.use(

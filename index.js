@@ -16,19 +16,20 @@ import customerAuthRoutes from "./routes/customerAuth.js";
 dotenv.config();
 const app = express();
 
-// ✅ Enable CORS for both local dev and Vercel frontend
+// ✅ Enable CORS for local dev and Vercel frontend
 const allowedOrigins = [
   "http://localhost:5173", // local Vite dev
-  "https://admin-v2-dgnv.vercel.app", // Vercel frontend
+  "https://admin-v2-dgnv-c501pnkal-medina1bs-projects.vercel.app", // exact deployed frontend
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      // allow requests with no origin (like Postman)
+      // allow requests with no origin (Postman or server-side)
       if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        const msg = `The CORS policy for this site does not allow access from the specified Origin.`;
+      if (!allowedOrigins.includes(origin)) {
+        const msg =
+          "The CORS policy for this site does not allow access from the specified Origin.";
         return callback(new Error(msg), false);
       }
       return callback(null, true);
